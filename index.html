@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,6 +19,22 @@
   <label for="input4">Input 4:</label>
   <textarea id="input4" placeholder="Enter text for Input 4"></textarea><br>
 
+  
+  <label for="input5">Input 5:</label>
+  <textarea id="input5" placeholder="Enter text for Input 5"></textarea><br>
+
+  <label for="input6">Input 6:</label>
+  <textarea id="input6" placeholder="Enter text for Input 6"></textarea><br>
+
+  <label for="input7">Input 7:</label>
+  <textarea id="input7" placeholder="Enter text for Input 7"></textarea><br>
+
+  <label for="input8">Input 8:</label>
+  <textarea id="input8" placeholder="Enter text for Input 8"></textarea><br>
+
+  <label for="input9">Input 9:</label>
+  <textarea id="input9" placeholder="Enter text for Input 9"></textarea><br>
+
   <!-- Add the Show All JKL button -->
   <button id="showAllJKLButton" onclick="toggleAllJKL()">Show All JKL</button>
      <!-- Add the Show LMN button -->
@@ -37,8 +54,8 @@
   
   <script>
     var valuesArray = [
-      { input1: "123", input2: "value12", input3: "value13", input4: "value14" },
-      { input1: "456", input2: "value22", input3: "value23", input4: "value24" },
+      { input1: "123", input2: "value12", input3: "value13", input4: "value14", input5: "value15", input6: "value16", input7: "value17", input8: "value18", input9: "value19" },
+      { input1: "456", input2: "value22", input3: "value23", input4: "value24", input5: "value25", input6: "value26", input7: "value27", input8: "https://www.onlinekhabar.com/2023/08/1351895", input9: "value29"},
       // Add more values as needed
     ];
     var lmnContentVisible = false;
@@ -54,10 +71,21 @@
         document.getElementById("input2").value = matchingValue.input2;
         document.getElementById("input3").value = matchingValue.input3;
         document.getElementById("input4").value = matchingValue.input4;
+        document.getElementById("input5").value = matchingValue.input5;
+document.getElementById("input6").value = matchingValue.input6;
+document.getElementById("input7").value = matchingValue.input7;
+document.getElementById("input8").value = matchingValue.input8;
+document.getElementById("input9").value = matchingValue.input9
       } else {
         document.getElementById("input2").value = "";
         document.getElementById("input3").value = "";
         document.getElementById("input4").value = "";
+        document.getElementById("input5").value = "";
+document.getElementById("input6").value = "";
+document.getElementById("input7").value = "";
+document.getElementById("input8").value = "";
+document.getElementById("input9").value = "";
+
       }
     }
     
@@ -72,11 +100,17 @@
           var input1Value = valuesArray[i].input1;
           var input2Value = valuesArray[i].input2;
           var input3Value = valuesArray[i].input3;
+          var input4Value = valuesArray[i].input4;
+          var input5Value = valuesArray[i].input5;
+  var input6Value = valuesArray[i].input6;
+  var input7Value = valuesArray[i].input7;
+  var input8Value = valuesArray[i].input8;
+  var input9Value = valuesArray[i].input9;
           
           var jklContentText = input1Value + ': ' + input2Value + ' + Best ' + input3Value + ' + ';
           jklContentText += '<a href="#" onclick="toggleJKLDetails(' + i + ')">[' + (i + 1) + ']</a>';
-          jklContentText += '<div id="jklDetails_' + i + '" style="display:none;">' + input2Value + ': This is ' + valuesArray[i].input4 + '</div>';
-          
+          jklContentText += '<div id="jklDetails_' + i + '" style="display:none;">' + input1Value  +  input4Value  + input5Value + input6Value + input7Value + '<a href="' + input8Value + '">' + input8Value + '</a> accessed on: ' + input9Value+'</div>';
+         
           var jklContent = document.createElement("div");
           jklContent.innerHTML = jklContentText;
           jklContainer.appendChild(jklContent);
@@ -112,6 +146,12 @@
         var input1Value = document.getElementById("input1").value;
         var input2Value = document.getElementById("input2").value;
         var input3Value = document.getElementById("input3").value;
+        var input4Value = document.getElementById("input4").value;
+        var input5Value = document.getElementById("input5").value;
+var input6Value = document.getElementById("input6").value;
+var input7Value = document.getElementById("input7").value;
+var input8Value = document.getElementById("input8").value;
+var input9Value = document.getElementById("input9").value;
         
         var lmnContentText = input1Value + ': ' + input2Value + ' + Best ' + input3Value + ' + ';
         lmnContentText += '<a href="#" onclick="toggleDetails()">[Details]</a>';
@@ -135,9 +175,17 @@
       
       if (lmnDetailsVisible) {
         var input1Value = document.getElementById("input1").value;
+        var input2Value = document.getElementById("input2").value;
+        var input3Value = document.getElementById("input3").value;
         var input4Value = document.getElementById("input4").value;
+        var input5Value = document.getElementById("input5").value;
+var input6Value = document.getElementById("input6").value;
+var input7Value = document.getElementById("input7").value;
+var input8Value = document.getElementById("input8").value;
+var input9Value = document.getElementById("input9").value;
         
-        var detailsContent = input1Value + ': This is ' + input4Value;
+        var detailsContent = input1Value +':'+  input4Value  + input5Value + input6Value + input7Value + '<a href="' + input8Value + '">' + input8Value + '</a> accessed on: ' + input9Value;
+
         lmnDetails.innerHTML = detailsContent;
         lmnDetails.style.display = "block";
       } else {
