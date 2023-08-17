@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Dynamic Page Example</title>
+</head>
+<body>
+  <h1>Dynamic Page Example</h1>
+  
+  <label for="input1">Input 1:</label>
+  <textarea id="input1" oninput="autoPopulateInputs()" placeholder="Enter text for Input 1"></textarea><br>
+
+  <label for="input2">Input 2:</label>
+  <textarea id="input2" placeholder="Enter text for Input 2"></textarea><br>
+
+  <label for="input3">Input 3:</label>
+  <textarea id="input3" placeholder="Enter text for Input 3"></textarea><br>
+
+  <label for="input4">Input 4:</label>
+  <textarea id="input4" placeholder="Enter text for Input 4"></textarea><br>
+
+  <!-- Add the Show LMN button -->
+  <button id="showLMNButton" onclick="toggleLMN()">Show LMN</button>
+   
+  <div id="lmnContent" style="display: none;">
+    <p id="lmnOutput"></p>
+    <div id="lmnDetails" style="display: none;">
+      <!-- Detailed content will be added here -->
+    </div>
+  </div>
+  
+  <script>
+    var valuesArray = [
+      { input1: "123", input2: "value12", input3: "value13", input4: "value14" },
+      { input1: "456", input2: "value22", input3: "value23", input4: "value24" },
+      // Add more values as needed
+    ];
+
+    var lmnContentVisible = false;
+    var lmnDetailsVisible = false;
+
+    function autoPopulateInputs() {
+      var input1Value = document.getElementById("input1").value;
+      var matchingValue = valuesArray.find(function(item) {
+        return item.input1 === input1Value;
+      });
+
+      if (matchingValue) {
+        document.getElementById("input2").value = matchingValue.input2;
+        document.getElementById("input3").value = matchingValue.input3;
+        document.getElementById("input4").value = matchingValue.input4;
+      } else {
+        document.getElementById("input2").value = "";
+        document.getElementById("input3").value = "";
+        document.getElementById("input4").value = "";
+      }
+    }
+
+    // Toggle the visibility of LMN content
+    function toggleLMN() {
+      var lmnContent = document.getElementById("lmnContent");
+      var showLMNButton = document.getElementById("showLMNButton");
+      
+      lmnContentVisible = !lmnContentVisible;
+      
+      if (lmnContentVisible) {
+        var input1Value = document.getElementById("input1").value;
+        var input2Value = document.getElementById("input2").value;
+        var input3Value = document.getElementById("input3").value;
+        
+        var lmnContentText = input1Value + ': ' + input2Value + ' + Best ' + input3Value + ' + ';
+        lmnContentText += '<a href="#" onclick="toggleDetails()">[' + (valuesArray.findIndex(item => item.input1 === input1Value) + 1) + ']</a>';
+        
+        document.getElementById("lmnOutput").innerHTML = lmnContentText;
+        
+        lmnContent.style.display = "block";
+        showLMNButton.textContent = "Hide LMN";
+      } else {
+        lmnContent.style.display = "none";
+        showLMNButton.textContent = "Show LMN";
+        hideDetails();
+      }
+    }
+
+    // Toggle the visibility of LMN details
+    function toggleDetails() {
+      var lmnDetails = document.getElementById("lmnDetails");
+      
+      lmnDetailsVisible = !lmnDetailsVisible;
+      
+      if (lmnDetailsVisible) {
+        var input1Value = document.getElementById("input1").value;
+        var input4Value = document.getElementById("input4").value;
+        
+        var detailsContent = input1Value + ': This is ' + input4Value;
+        lmnDetails.innerHTML = detailsContent;
+        lmnDetails.style.display = "block";
+      } else {
+        lmnDetails.style.display = "none";
+      }
+    }
+
+    // Hide the details
+    function hideDetails() {
+      var lmnDetails = document.getElementById("lmnDetails");
+      lmnDetails.style.display = "none";
+      lmnDetailsVisible = false;
+    }
+    
+  
+  </script>
+</body>
+</html>
