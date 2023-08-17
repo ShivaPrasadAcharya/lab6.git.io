@@ -18,15 +18,22 @@
   <label for="input4">Input 4:</label>
   <textarea id="input4" placeholder="Enter text for Input 4"></textarea><br>
 
-  <!-- Add the Show LMN button -->
-  <button id="showLMNButton" onclick="toggleLMN()">Show LMN</button>
+  <!-- Add the Show All JKL button -->
+  <button id="showAllJKLButton" onclick="toggleAllJKL()">Show All JKL</button>
+     <!-- Add the Show LMN button -->
+   <button id="showLMNButton" onclick="toggleLMN()">Show LMN</button>
+
+   <!--content of jkl is visible here-->
+  <div id="jklContainer"></div>
+
+   <!--content of lmn is visible here-->
    
-  <div id="lmnContent" style="display: none;">
-    <p id="lmnOutput"></p>
-    <div id="lmnDetails" style="display: none;">
-      <!-- Detailed content will be added here -->
-    </div>
-  </div>
+   <div id="lmnContent" style="display: none;">
+     <p id="lmnOutput"></p>
+     <div id="lmnDetails" style="display: none;">
+       <!-- Detailed content will be added here -->
+     </div>
+   </div>
   
   <script>
     var valuesArray = [
@@ -34,10 +41,9 @@
       { input1: "456", input2: "value22", input3: "value23", input4: "value24" },
       // Add more values as needed
     ];
-
     var lmnContentVisible = false;
     var lmnDetailsVisible = false;
-
+    
     function autoPopulateInputs() {
       var input1Value = document.getElementById("input1").value;
       var matchingValue = valuesArray.find(function(item) {
@@ -54,6 +60,46 @@
         document.getElementById("input4").value = "";
       }
     }
+    
+    var showAllJKLButton = document.getElementById("showAllJKLButton");
+    var jklContainer = document.getElementById("jklContainer");
+    
+    // Toggle the visibility of all JKL content
+    function toggleAllJKL() {
+      if (jklContainer.innerHTML === '') {
+        // Generate JKL content if it's empty
+        for (var i = 0; i < valuesArray.length; i++) {
+          var input1Value = valuesArray[i].input1;
+          var input2Value = valuesArray[i].input2;
+          var input3Value = valuesArray[i].input3;
+          
+          var jklContentText = input1Value + ': ' + input2Value + ' + Best ' + input3Value + ' + ';
+          jklContentText += '<a href="#" onclick="toggleJKLDetails(' + i + ')">[' + (i + 1) + ']</a>';
+          jklContentText += '<div id="jklDetails_' + i + '" style="display:none;">' + input2Value + ': This is ' + valuesArray[i].input4 + '</div>';
+          
+          var jklContent = document.createElement("div");
+          jklContent.innerHTML = jklContentText;
+          jklContainer.appendChild(jklContent);
+        }
+        
+        showAllJKLButton.textContent = "Hide All JKL"; // Update button text
+      } else {
+        // Clear JKL content if it's not empty
+        jklContainer.innerHTML = '';
+        showAllJKLButton.textContent = "Show All JKL"; // Update button text
+      }
+    }
+    
+    // Toggle the visibility of JKL details
+    function toggleJKLDetails(index) {
+      var detailsDiv = document.getElementById('jklDetails_' + index);
+      
+      if (detailsDiv.style.display === 'none') {
+        detailsDiv.style.display = 'block';
+      } else {
+        detailsDiv.style.display = 'none';
+      }
+    }
 
     // Toggle the visibility of LMN content
     function toggleLMN() {
@@ -68,7 +114,7 @@
         var input3Value = document.getElementById("input3").value;
         
         var lmnContentText = input1Value + ': ' + input2Value + ' + Best ' + input3Value + ' + ';
-        lmnContentText += '<a href="#" onclick="toggleDetails()">[' + (valuesArray.findIndex(item => item.input1 === input1Value) + 1) + ']</a>';
+        lmnContentText += '<a href="#" onclick="toggleDetails()">[Details]</a>';
         
         document.getElementById("lmnOutput").innerHTML = lmnContentText;
         
@@ -106,7 +152,6 @@
       lmnDetailsVisible = false;
     }
     
-  
   </script>
 </body>
 </html>
