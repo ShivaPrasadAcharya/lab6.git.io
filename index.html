@@ -3,38 +3,70 @@
 <html>
 <head>
   <title>Dynamic Page Example</title>
+  <style>
+    /* Style for the toggle buttons */
+    button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+  
+    /* Style for the active (toggled) buttons */
+    button.active {
+      background-color: #28a745;
+    }
+
+    textarea {
+    width: 90%;
+    max-width: 100%; /* Ensure it doesn't exceed the viewport width */
+    box-sizing: border-box; /* Include padding and border in the width calculation */
+  }
+  </style>
+  
 </head>
 <body>
   <h1>Dynamic Page Example</h1>
-  
+   <label for="input0">Parking1:</label>
+  <textarea id="input0" placeholder="Enter text for Input 0:heading"></textarea><br>
+   <label for="input00">Parking2:</label>
+  <textarea id="input00" placeholder="Enter text for Input 00:heading"></textarea><br>
   <label for="input1">Input 1:</label>
-  <textarea id="input1" oninput="autoPopulateInputs()" placeholder="Enter text for Input 1"></textarea><br>
+  <textarea id="input1" oninput="autoPopulateInputs()" placeholder="Enter text for Input 1:ID"></textarea><br>
 
   <label for="input2">Input 2:</label>
-  <textarea id="input2" placeholder="Enter text for Input 2"></textarea><br>
+  <textarea id="input2" placeholder="Enter text for Input 2:heading"></textarea><br>
 
   <label for="input3">Input 3:</label>
-  <textarea id="input3" placeholder="Enter text for Input 3"></textarea><br>
+  <textarea id="input3" placeholder="Enter text for Input 3:content"></textarea><br>
 
   <label for="input4">Input 4:</label>
-  <textarea id="input4" placeholder="Enter text for Input 4"></textarea><br>
+  <textarea id="input4" placeholder="Enter text for Input 4:fn1"></textarea><br>
 
   
   <label for="input5">Input 5:</label>
-  <textarea id="input5" placeholder="Enter text for Input 5"></textarea><br>
+  <textarea id="input5" placeholder="Enter text for Input 5:fn2"></textarea><br>
 
   <label for="input6">Input 6:</label>
-  <textarea id="input6" placeholder="Enter text for Input 6"></textarea><br>
+  <textarea id="input6" placeholder="Enter text for Input 6:fn3"></textarea><br>
 
   <label for="input7">Input 7:</label>
-  <textarea id="input7" placeholder="Enter text for Input 7"></textarea><br>
+  <textarea id="input7" placeholder="Enter text for Input 7:title"></textarea><br>
 
   <label for="input8">Input 8:</label>
-  <textarea id="input8" placeholder="Enter text for Input 8"></textarea><br>
+  <textarea id="input8" placeholder="Enter text for Input 8:link"></textarea><br>
 
   <label for="input9">Input 9:</label>
-  <textarea id="input9" placeholder="Enter text for Input 9"></textarea><br>
+  <textarea id="input9" placeholder="Enter text for Input 9:accessed on:"></textarea><br>
 
+  <label for="input10">Input 10:</label>
+  <textarea id="input10" placeholder="Enter text for Input 10:Keywords"></textarea><br>
+
+  <button id="showButton" onclick="toggleABC()">Show ABC</button>
+
+  <p id="output" style="display: none;"></p> 
   <!-- Add the Show All JKL button -->
   <button id="showAllJKLButton" onclick="toggleAllJKL()">Show All JKL</button>
      <!-- Add the Show LMN button -->
@@ -51,13 +83,19 @@
        <!-- Detailed content will be added here -->
      </div>
    </div>
+
+    
+
+   </div>
   
   <script>
     var valuesArray = [
-      { input1: "123", input2: "value12", input3: "value13", input4: "value14", input5: "value15", input6: "value16", input7: "value17", input8: "value18", input9: "value19" },
-      { input1: "456", input2: "value22", input3: "value23", input4: "value24", input5: "value25", input6: "value26", input7: "value27", input8: "https://www.onlinekhabar.com/2023/08/1351895", input9: "value29"},
+    {input1: "123", input2: "value12", input3: "value13", input4: "value14", input5: "value15", input6: "value16", input7: "value17", input8: "value18", input9: "value19", input10: "value0"},
+          { input1: "456", input2: "value22", input3: "value23", input4: "value24", input5: "value25", input6: "value26", input7: "value27", input8: "https://www.onlinekhabar.com/2023/08/1351895", input9: "value29", input10:"value0"},
+      {  "input1": "789",  "input2": "a",  "input3": "b",  "input4": "",  "input5": "",  "input6": "",  "input7": "",  "input8": "",  "input9": "",  "input10": ""}
       // Add more values as needed
     ];
+    var mainTextVisible=false;
     var lmnContentVisible = false;
     var lmnDetailsVisible = false;
     
@@ -75,7 +113,8 @@
 document.getElementById("input6").value = matchingValue.input6;
 document.getElementById("input7").value = matchingValue.input7;
 document.getElementById("input8").value = matchingValue.input8;
-document.getElementById("input9").value = matchingValue.input9
+document.getElementById("input9").value = matchingValue.input9;
+document.getElementById("input10").value = matchingValue.input10
       } else {
         document.getElementById("input2").value = "";
         document.getElementById("input3").value = "";
@@ -85,6 +124,7 @@ document.getElementById("input6").value = "";
 document.getElementById("input7").value = "";
 document.getElementById("input8").value = "";
 document.getElementById("input9").value = "";
+document.getElementById("input10").value = "";
 
       }
     }
@@ -106,10 +146,11 @@ document.getElementById("input9").value = "";
   var input7Value = valuesArray[i].input7;
   var input8Value = valuesArray[i].input8;
   var input9Value = valuesArray[i].input9;
+  var input10Value = valuesArray[i].input10;
           
-          var jklContentText = input1Value + ': ' + input2Value + ' + Best ' + input3Value + ' + ';
+          var jklContentText = '<b><u>'+ input1Value + ': ' + input2Value+ '</b></u>'  + input3Value +  ' + ';
           jklContentText += '<a href="#" onclick="toggleJKLDetails(' + i + ')">[' + (i + 1) + ']</a>';
-          jklContentText += '<div id="jklDetails_' + i + '" style="display:none;">' + input1Value  +  input4Value  + input5Value + input6Value + input7Value + '<a href="' + input8Value + '">' + input8Value + '</a> accessed on: ' + input9Value+'</div>';
+          jklContentText += '<div id="jklDetails_' + i + '" style="display:none;">' + input1Value + ":" +  input4Value  + input5Value + input6Value + input7Value + '<a href="' + input8Value + '">' + input8Value + '</a>' + input9Value+'</div>';
          
           var jklContent = document.createElement("div");
           jklContent.innerHTML = jklContentText;
@@ -117,10 +158,12 @@ document.getElementById("input9").value = "";
         }
         
         showAllJKLButton.textContent = "Hide All JKL"; // Update button text
+       showAllJKLButton.classList.add("active"); // Add "active" class
       } else {
         // Clear JKL content if it's not empty
         jklContainer.innerHTML = '';
         showAllJKLButton.textContent = "Show All JKL"; // Update button text
+        showAllJKLButton.classList.remove("active"); // Remove "active" class
       }
     }
     
@@ -152,18 +195,22 @@ var input6Value = document.getElementById("input6").value;
 var input7Value = document.getElementById("input7").value;
 var input8Value = document.getElementById("input8").value;
 var input9Value = document.getElementById("input9").value;
+var input9Value = document.getElementById("input10").value;
         
-        var lmnContentText = input1Value + ': ' + input2Value + ' + Best ' + input3Value + ' + ';
+        var lmnContentText = '<b><u>'+ input1Value + ': ' + input2Value+ '</b></u>'  + input3Value +  ' + ';
         lmnContentText += '<a href="#" onclick="toggleDetails()">[Details]</a>';
         
         document.getElementById("lmnOutput").innerHTML = lmnContentText;
         
         lmnContent.style.display = "block";
         showLMNButton.textContent = "Hide LMN";
+        showLMNButton.classList.add("active"); // Add "active" class
       } else {
         lmnContent.style.display = "none";
         showLMNButton.textContent = "Show LMN";
         hideDetails();
+        showLMNButton.classList.remove("active"); // Remove "active" class
+    hideDetails(); // Also call hideDetails when hiding LMN
       }
     }
 
@@ -183,8 +230,9 @@ var input6Value = document.getElementById("input6").value;
 var input7Value = document.getElementById("input7").value;
 var input8Value = document.getElementById("input8").value;
 var input9Value = document.getElementById("input9").value;
+var input9Value = document.getElementById("input10").value;
         
-        var detailsContent = input1Value +':'+  input4Value  + input5Value + input6Value + input7Value + '<a href="' + input8Value + '">' + input8Value + '</a> accessed on: ' + input9Value;
+        var detailsContent = input1Value +':'+  input4Value  + input5Value + input6Value + input7Value + '<a href="' + input8Value + '">' + input8Value + '</a>' + input9Value;
 
         lmnDetails.innerHTML = detailsContent;
         lmnDetails.style.display = "block";
@@ -199,7 +247,76 @@ var input9Value = document.getElementById("input9").value;
       lmnDetails.style.display = "none";
       lmnDetailsVisible = false;
     }
+
+    //generationg date and time and feeding it into input field 9
+ 
+  // Function to format the date as "dd Month Name, yyyy-hr:min"
+  function formatDate(date) {
+    const months = [
+      "January", "February", "March", "April", "May", "June",
+      "July", "August", "September", "October", "November", "December"
+    ];
     
+    const day = date.getDate();
+    const monthName = months[date.getMonth()];
+    const year = date.getFullYear();
+    const hours = date.getHours();
+    const minutes = date.getMinutes();
+    
+    return `Accessed on:${day} ${monthName}, ${year}-${hours}:${minutes}`;
+  }
+  
+  // Function to handle the Ctrl + D + T key combination
+  function handleCtrlDT(event) {
+    if (event.ctrlKey && event.key === "d") {
+      // Prevent the default behavior of the key combination
+      event.preventDefault();
+      
+      // Generate the current date and time in the desired format
+      const currentDate = new Date();
+      const formattedDate = formatDate(currentDate);
+      
+      // Insert the formatted date into input 9
+      document.getElementById("input9").value = formattedDate;
+    }
+  }
+
+  // Add an event listener to the document for keydown events
+  document.addEventListener("keydown", handleCtrlDT);
+
+// Toggle the visibility of ABC content
+    var mainTextVisible = false; // Declare the variable
+    
+    function toggleABC() {
+      var output = document.getElementById("output");
+      var showButton = document.getElementById("showButton");
+      
+      mainTextVisible = !mainTextVisible;
+      
+      if (mainTextVisible) {
+        var input1Value = document.getElementById("input1").value;
+        var input2Value = document.getElementById("input2").value;
+        var input3Value = document.getElementById("input3").value;
+        var input4Value = document.getElementById("input4").value;
+        var input5Value = document.getElementById("input5").value;
+        var input6Value = document.getElementById("input6").value;
+        var input7Value = document.getElementById("input7").value;
+        var input8Value = document.getElementById("input8").value;
+        var input9Value = document.getElementById("input9").value;
+        var input10Value = document.getElementById("input10").value;
+        
+        output.textContent = '{input1: "' + input1Value + '", input2: "' + input2Value + '", input3: "' + input3Value + '", input4: "' + input4Value + '", input5: "' + input5Value + '", input6: "' + input6Value + '", input7: "' + input7Value + '", input8: "' + input8Value + '", input9: "' + input9Value + '", input10: "' + input10Value + '"}'+",";
+    showButton.innerHTML = "Hide ABC";
+    showButton.classList.add("active"); // Add "active" class
+        output.style.display = "block";
+        showButton.textContent = "Hide ABC";
+      } else {
+        output.style.display = "none";
+        showButton.textContent = "Show ABC";
+          showButton.innerHTML = "Show ABC";
+    showButton.classList.remove("active"); // Remove "active" class}
+    }
+  }
   </script>
 </body>
 </html>
