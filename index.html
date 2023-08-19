@@ -547,16 +547,19 @@ function toggleJKLDetails(event, index) {
   event.preventDefault(); // Prevent the default anchor behavior
   var detailsDiv = document.getElementById('jklDetails_' + index);
 
+  // Close all open details, (remove these four line script show that all there is no closing of open details)
+  var allDetails = document.querySelectorAll('.jkl-details');
+  allDetails.forEach(function (detail) {
+    detail.style.display = 'none';
+  });
+
+  // Open the clicked detail
   if (detailsDiv.style.display === 'none') {
     detailsDiv.style.display = 'block';
   } else {
     detailsDiv.style.display = 'none';
   }
 }
-
-
-
 </script>
 </body>
-
 </html>
