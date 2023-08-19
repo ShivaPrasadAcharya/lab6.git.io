@@ -562,5 +562,110 @@ function toggleJKLDetails(event, index) {
   }
 }
 </script>
+<!-- Replace the input field with a textarea for filter criteria -->
+<label for="filterInput">Filter JKL:</label>
+<textarea id="filterInput" placeholder="Enter filter criteria"></textarea>
+
+<!-- Add a filter button -->
+<button id="filterButton" onclick="filterJKL()">Filter JKL</button>
+
+<script>
+  // Function to filter JKL content
+  function filterJKL() {
+    // Get the filter input value from the textarea
+    var filterInput = document.getElementById("filterInput").value.toLowerCase();
+
+    // Clear previous filter results and hide all JKL content
+    jklContainer.innerHTML = '';
+    hideAllJKL();
+
+    // Parse and split the filter input into OR, AND, and NOT conditions
+    var orConditions = filterInput.split("or(").filter(Boolean).map(function (item) {
+      return item.trim();
+    });
+
+    // Filter and display JKL content based on criteria
+    for (var i = 0; i < valuesArray.length; i++) {
+      var input10Value = valuesArray[i].input10.toLowerCase();
+
+      // Evaluate OR conditions
+      var orMatch = orConditions.some(function (orCondition) {
+        return evaluateCondition(orCondition, input10Value);
+      });
+
+      if (orMatch) {
+        displayJKL(i);
+      }
+    }
+
+    // Display a message if no matches are found
+    if (jklContainer.innerHTML === '') {
+      alert("No matches found.");
+    }
+  }
+
+  // Function to hide all JKL content
+  function hideAllJKL() {
+    var jklDetails = document.querySelectorAll(".jkl-details");
+    jklDetails.forEach(function (element) {
+      element.style.display = "none";
+    });
+  }
+
+  // Function to evaluate filter conditions
+  function evaluateCondition(condition, input10Value) {
+    // ... (existing evaluateCondition logic)
+
+    // Default behavior: Check if the condition is contained in input10
+    return input10Value.includes(condition);
+  }
+
+  // Function to display JKL content
+  function displayJKL(index) {
+    var input1Value = valuesArray[index].input1;
+    var input2Value = valuesArray[index].input2;
+    var input3Value = valuesArray[index].input3;
+    var input4Value = valuesArray[index].input4;
+    var input5Value = valuesArray[index].input5.replace(/&#x003C;/g, "<").replace(/&#x003E;/g, ">");
+    var input6Value = valuesArray[index].input6;
+    var input7Value = valuesArray[index].input7;
+    var input8Value = valuesArray[index].input8;
+    var input9Value = valuesArray[index].input9;
+    var input10Value = valuesArray[index].input10;
+
+    var jklContentText = '<b><u>' + input1Value + ': ' + input2Value + '</b></u>' + input3Value + ' + ';
+    jklContentText += '<a href="javascript:void(0)" onclick="toggleJKLDetails(' + index + ')">[' + (index + 1) + ']</a>';
+    jklContentText += '<div id="jklDetails_' + index + '" class="jkl-details">' + input1Value + ":" + input4Value + input5Value + input6Value + input7Value + '<a href="' + input8Value + '">' + input8Value + '</a>' + input9Value + '</div>';
+
+  var jklContent = document.createElement("div");
+  jklContent.className = "jkl-content"; // Add a class for styling
+
+  // Remove the "display: none" style to show the content
+  jklContent.style.display = "block";
+
+  jklContent.innerHTML = jklContentText;
+  jklContainer.appendChild(jklContent);
+}
+
+// Function to toggle the visibility of JKL details
+function toggleJKLDetails(index) {
+  var jklDetails = document.getElementById("jklDetails_" + index);
+  if (jklDetails.style.display === "none") {
+    jklDetails.style.display = "block";
+  } else {
+    jklDetails.style.display = "none";
+  }
+}
+
+</script>
+
+<a id="BOTTOM"></a>
+<footer>
+
+  <p id="developedby"><u><b>Developed By:</b></u><br> Shiva Prasad Acharya (M.Sc.; LL.M)<br>
+    Shiva.Acharya@supremecourt.gov.np <br> परमा एकादशी, २०८०
+  </p>
+</footer>
+  
 </body>
 </html>
