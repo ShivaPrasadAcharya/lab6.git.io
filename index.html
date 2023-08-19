@@ -547,17 +547,18 @@ function toggleJKLDetails(event, index) {
   event.preventDefault(); // Prevent the default anchor behavior
   var detailsDiv = document.getElementById('jklDetails_' + index);
 
-  // Close all open details, (remove these four line script show that all there is no closing of open details)
-  var allDetails = document.querySelectorAll('.jkl-details');
-  allDetails.forEach(function (detail) {
-    detail.style.display = 'none';
-  });
-
-  // Open the clicked detail
-  if (detailsDiv.style.display === 'none') {
-    detailsDiv.style.display = 'block';
+  // Toggle the display of the clicked detail
+  if (detailsDiv.style.display === 'block') {
+    detailsDiv.style.display = 'none'; // Close the clicked detail
   } else {
-    detailsDiv.style.display = 'none';
+    // Close all open details, (एउटा लिङ्क खोल्दा अर्को लिङ्कको content बन्द नगर्ने भए यो ३ लाइन हटाइदिनुहोस्)
+    var allDetails = document.querySelectorAll('.jkl-details');
+    allDetails.forEach(function (detail) {
+      detail.style.display = 'none';
+    });
+
+    // Open the clicked detail
+    detailsDiv.style.display = 'block';
   }
 }
 </script>
