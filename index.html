@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 
@@ -48,7 +49,7 @@
       /* New style for the output */
   /* New style for the output */
   .jkl-details {
-    display: none;/*this stop the detail content from displaying atutomatically.remove it if needed*/
+   display: none;/*this stop the detail content from displaying atutomatically.remove it if needed*/
     font-size: small;
     font-style: italic;
     /* Add other styles as needed */
@@ -103,25 +104,14 @@
   <label for="input10">Input 10:</label>
   <textarea id="input10" placeholder="Enter text for Input 10:Keywords"></textarea><br>
 
-  <button id="showButton" onclick="toggleABC()">Show ABC</button>
 
-  <p id="output" style="display: none;"></p>
   <!-- Add the Show All JKL button -->
   <button id="showAllJKLButton" onclick="toggleAllJKL()">Show All JKL</button>
-  <!-- Add the Show LMN button -->
-  <button id="showLMNButton" onclick="toggleLMN()">Show LMN</button>
+
 
   <!--content of jkl is visible here-->
   <div id="jklContainer"></div>
 
-  <!--content of lmn is visible here-->
-
-  <div id="lmnContent" style="display: none;">
-    <p id="lmnOutput"></p>
-    <div id="lmnDetails" style="display: none;">
-      <!-- Detailed content will be added here -->
-    </div>
-  </div>
 
 
 
@@ -129,58 +119,20 @@
 
   <script>
     var valuesArray = [
-      { input1: "123", input2: "value12", input3: "value13", input4: "value14", input5: "value15&#x003C;b&#x003E;this is bold&#x003C;/b&#x003E;value1515&#x003C;br&#x003E;ok", input6: "value16", input7: "value17", input8: "value18", input9: "value19", input10: "value0" },
 
-      { input1: "456", input2: "value22", input3: "value23", input4: "value24", input5: "value25", input6: "value26", input7: "value27", input8: "https://www.onlinekhabar.com/2023/08/1351895", input9: "value29", input10: "value0" },
-      { "input1": "789", "input2": "a", "input3": "b", "input4": "", "input5": "", "input6": "", "input7": "", "input8": "", "input9": "", "input10": "" }
+      { input1: "123", input2: "value12", input3: "value13", input4: "value14", input5: "value15&#x003C;b&#x003E;this is bold&#x003C;/b&#x003E;value1515&#x003C;br&#x003E;ok", input6: "value16", input7: "value17", input8: "value18", input9: "value19", input10: "{value0, value1}" },
+
+      { input1: "456", input2: "value22", input3: "value23", input4: "value24", input5: "value25", input6: "value26", input7: "value27", input8: "https://www.onlinekhabar.com/2023/08/1351895", input9: "value29", input10: "{value0, value2}" },
+
+{input1: "901", input2: "&#x003C;b&#x003E;सासंद विकास कोष&#x003C;/b&#x003E;", input3: "", input4: "", input5: "", input6: "", input7: "सांसद विकास कोषको बजेट खर्च नगर्न सर्वोच्चको आदेश", input8: "https://www.onlinekhabar.com/2023/08/1354751", input9: ", news of:23 August, 2023", input10: "{supreme court, good governance, parliament, budget, interim order, constitutional bench, IO issued, show cause order}"},
+
+{input1: "902", input2: "", input3: "", input4: "", input5: "", input6: "", input7: "कोशी सरकारलाई दीर्घकालीन महत्वको निर्णय नगर्न सर्वोच्चको अन्तरिम आदेश", input8: "https://www.onlinekhabar.com/2023/08/1355308", input9: ", news on:24 August, 2023", input10: "{SC, SB, IPK, IO, IOI, SCO, province assembly, higmat karki, uddav thapa, VOC, CM, koshi province, parliament culture, constitutional morality, preference}"},
+     
       // Add more values as needed
     ];
     var mainTextVisible = false;
     var lmnContentVisible = false;
     var lmnDetailsVisible = false;
-
-    //autopopulating the input fields
-    function autoPopulateInputs() {
-      var input1Value = document.getElementById("input1").value;
-      var matchingValue = valuesArray.find(function (item) {
-        return item.input1 === input1Value;
-      });
-
-      var input1Field = document.getElementById("input1");
-
-      if (matchingValue) {
-        input1Field.value = matchingValue.input1;
-        input1Field.classList.remove("no-match");
-        input1Field.classList.add("match");
-        // Rest of your code to populate other fields...
-      } else {
-        input1Field.value = input1Value;
-        input1Field.classList.remove("match");
-        input1Field.classList.add("no-match");
-      }
-      if (matchingValue) {
-        document.getElementById("input2").value = matchingValue.input2;
-        document.getElementById("input3").value = matchingValue.input3.replace(/</g, "&#x003C;").replace(/>/g, "&#x003E;");
-        document.getElementById("input4").value = matchingValue.input4.replace(/</g, "&#x003C;").replace(/>/g, "&#x003E;");
-        document.getElementById("input5").value = matchingValue.input5.replace(/</g, "&#x003C;").replace(/>/g, "&#x003E;");
-        document.getElementById("input6").value = matchingValue.input6.replace(/</g, "&#x003C;").replace(/>/g, "&#x003E;");
-        document.getElementById("input7").value = matchingValue.input7;
-        document.getElementById("input8").value = matchingValue.input8;
-        document.getElementById("input9").value = matchingValue.input9;
-        document.getElementById("input10").value = matchingValue.input10
-      } else {
-        document.getElementById("input2").value = "";
-        document.getElementById("input3").value = "";
-        document.getElementById("input4").value = "";
-        document.getElementById("input5").value = "";
-        document.getElementById("input6").value = "";
-        document.getElementById("input7").value = "";
-        document.getElementById("input8").value = "";
-        document.getElementById("input9").value = "";
-        document.getElementById("input10").value = "";
-
-      }
-    }
 
     var showAllJKLButton = document.getElementById("showAllJKLButton");
     var jklContainer = document.getElementById("jklContainer");
@@ -191,11 +143,11 @@
         // Generate JKL content if it's empty
         for (var i = 0; i < valuesArray.length; i++) {
           var input1Value = valuesArray[i].input1;
-          var input2Value = valuesArray[i].input2;
-          var input3Value = valuesArray[i].input3;
-          var input4Value = valuesArray[i].input4;
+          var input2Value = valuesArray[i].input2.replace(/&#x003C;/g, "<").replace(/&#x003E;/g, ">");
+          var input3Value = valuesArray[i].input3.replace(/&#x003C;/g, "<").replace(/&#x003E;/g, ">");
+          var input4Value = valuesArray[i].input4.replace(/&#x003C;/g, "<").replace(/&#x003E;/g, ">");
           var input5Value = valuesArray[i].input5.replace(/&#x003C;/g, "<").replace(/&#x003E;/g, ">");
-          var input6Value = valuesArray[i].input6;
+          var input6Value = valuesArray[i].input6.replace(/&#x003C;/g, "<").replace(/&#x003E;/g, ">");
           var input7Value = valuesArray[i].input7;
           var input8Value = valuesArray[i].input8;
           var input9Value = valuesArray[i].input9;
@@ -235,312 +187,11 @@ jklContentText += '<div id="jklDetails_' + i + '" class="jkl-details">' + input1
       }
     }
 
-    // Toggle the visibility of LMN content
-    function toggleLMN() {
-      var lmnContent = document.getElementById("lmnContent");
-      var showLMNButton = document.getElementById("showLMNButton");
-
-      lmnContentVisible = !lmnContentVisible;
-
-      if (lmnContentVisible) {
-        var input1Value = document.getElementById("input1").value;
-        var input2Value = document.getElementById("input2").value.replace(/&#x003C;/g, "<").replace(/&#x003E;/g, ">");
-        var input3Value = document.getElementById("input3").value.replace(/&#x003C;/g, "<").replace(/&#x003E;/g, ">");
-        var input4Value = document.getElementById("input4").value;
-        var input5Value = document.getElementById("input5").value;
-        var input6Value = document.getElementById("input6").value;
-        var input7Value = document.getElementById("input7").value;
-        var input8Value = document.getElementById("input8").value;
-        var input9Value = document.getElementById("input9").value;
-        var input10Value = document.getElementById("input10").value;
-
-        var lmnContentText = '<b><u>' + input1Value + ': ' + input2Value + '</b></u>' + input3Value + ' + ';
-        lmnContentText += '<a href="javascript:void(0)" onclick="toggleDetails()">[Details]</a>';
-
-        document.getElementById("lmnOutput").innerHTML = lmnContentText;
-
-        lmnContent.style.display = "block";
-        showLMNButton.textContent = "Hide LMN";
-        showLMNButton.classList.add("active"); // Add "active" class
-      } else {
-        lmnContent.style.display = "none";
-        showLMNButton.textContent = "Show LMN";
-        hideDetails();
-        showLMNButton.classList.remove("active"); // Remove "active" class
-        hideDetails(); // Also call hideDetails when hiding LMN
-      }
-    }
-
-    // Toggle the visibility of LMN details
-    function toggleDetails() {
-      var lmnDetails = document.getElementById("lmnDetails");
-
-      lmnDetailsVisible = !lmnDetailsVisible;
-
-      if (lmnDetailsVisible) {
-        var input1Value = document.getElementById("input1").value;
-        var input2Value = document.getElementById("input2").value;
-        var input3Value = document.getElementById("input3").value;
-        var input4Value = document.getElementById("input4").value.replace(/&#x003C;/g, "<").replace(/&#x003E;/g, ">");
-        var input5Value = document.getElementById("input5").value.replace(/&#x003C;/g, "<").replace(/&#x003E;/g, ">");
-        var input6Value = document.getElementById("input6").value.replace(/&#x003C;/g, "<").replace(/&#x003E;/g, ">");
-        var input7Value = document.getElementById("input7").value;
-        var input8Value = document.getElementById("input8").value;
-        var input9Value = document.getElementById("input9").value;
-        var input10Value = document.getElementById("input10").value;
-
-        var detailsContent = '<div class="details-content">' + input1Value + ':' + input4Value + input5Value + input6Value + input7Value + '<a href="' + input8Value + '">' + input8Value + '</a>' + input9Value + '</div>';
-
-        lmnDetails.innerHTML = detailsContent;
-        lmnDetails.style.display = "block";
-      } else {
-        lmnDetails.style.display = "none";
-      }
-    }
-
-    // Hide the details
-    function hideDetails() {
-      var lmnDetails = document.getElementById("lmnDetails");
-      lmnDetails.style.display = "none";
-      lmnDetailsVisible = false;
-    }
-
-    // Function to format the date as "dd Month Name, yyyy-hrhr:minmin"into input field 9
-    function formatDate(date) {
-      const months = [
-        "January", "February", "March", "April", "May", "June",
-        "July", "August", "September", "October", "November", "December"
-      ];
-
-      const day = date.getDate();
-      const monthName = months[date.getMonth()];
-      const year = date.getFullYear();
-      const hours = date.getHours().toString().padStart(2, '0'); // Add leading zero if necessary
-      const minutes = date.getMinutes().toString().padStart(2, '0'); // Add leading zero if necessary
-
-      return `, Accessed on:${day} ${monthName}, ${year}-${hours}:${minutes}`;
-    }
-
-    // Function to handle the Ctrl + D + T key combination
-    function handleCtrlDT(event) {
-      if (event.ctrlKey && event.key === "d") {
-        // Prevent the default behavior of the key combination
-        event.preventDefault();
-
-        // Generate the current date and time in the desired format
-        const currentDate = new Date();
-        const formattedDate = formatDate(currentDate);
-
-        // Insert the formatted date into input 9
-        document.getElementById("input9").value = formattedDate;
-      }
-    }
-
-    // Add an event listener to the document for keydown events
-    document.addEventListener("keydown", handleCtrlDT);
-
-    // Toggle the visibility of ABC content
-    var mainTextVisible = false; // Declare the variable
-
-    function toggleABC() {
-      var output = document.getElementById("output");
-      var showButton = document.getElementById("showButton");
-
-      mainTextVisible = !mainTextVisible;
-
-      if (mainTextVisible) {
-        var input1Value = document.getElementById("input1").value;
-        var input2Value = document.getElementById("input2").value;
-        var input3Value = document.getElementById("input3").value;
-        var input4Value = document.getElementById("input4").value;
-        var input5Value = document.getElementById("input5").value;
-        var input6Value = document.getElementById("input6").value;
-        var input7Value = document.getElementById("input7").value;
-        var input8Value = document.getElementById("input8").value;
-        var input9Value = document.getElementById("input9").value;
-        var input10Value = document.getElementById("input10").value;
-
-        output.textContent = '{input1: "' + input1Value + '", input2: "' + input2Value + '", input3: "' + input3Value + '", input4: "' + input4Value + '", input5: "' + input5Value + '", input6: "' + input6Value + '", input7: "' + input7Value + '", input8: "' + input8Value + '", input9: "' + input9Value + '", input10: "' + input10Value + '"}' + ",";
-        showButton.innerHTML = "Hide ABC";
-        showButton.classList.add("active"); // Add "active" class
-        output.style.display = "block";
-        showButton.textContent = "Hide ABC";
-      } else {
-        output.style.display = "none";
-        showButton.textContent = "Show ABC";
-        showButton.innerHTML = "Show ABC";
-        showButton.classList.remove("active"); // Remove "active" class}
-      }
-    }
-
-    //Using enter key etc. to enter #x003C;br&#x003E; etc. in input field
-    function addLineBreak(event) {
-      if (event.key === "Enter" && event.ctrlKey) {
-        event.preventDefault();
-        var input = event.target;
-        var cursorPosition = input.selectionStart;
-        var currentValue = input.value;
-        var newValue =
-          currentValue.substring(0, cursorPosition) +
-          "&#x003C;br&#x003E;" +
-          currentValue.substring(cursorPosition);
-        input.value = newValue;
-        input.setSelectionRange(cursorPosition + 19, cursorPosition + 19);
-      }
-      if (event.key === "b" && event.ctrlKey) {
-        event.preventDefault();
-        var input = event.target;
-        var cursorPosition = input.selectionStart;
-        var currentValue = input.value;
-        var newValue =
-          currentValue.substring(0, cursorPosition) +
-          "&#x003C;b&#x003E;" +
-          "&#x003C;/b&#x003E;" +
-          currentValue.substring(cursorPosition);
-        input.value = newValue;
-        input.setSelectionRange(cursorPosition + 17, cursorPosition + 17);
-      }
-      if (event.key === "u" && event.ctrlKey) {
-        event.preventDefault();
-        var input = event.target;
-        var cursorPosition = input.selectionStart;
-        var currentValue = input.value;
-        var newValue =
-          currentValue.substring(0, cursorPosition) +
-          "&#x003C;u&#x003E;" +
-          "&#x003C;/u&#x003E;" +
-          currentValue.substring(cursorPosition);
-        input.value = newValue;
-        input.setSelectionRange(cursorPosition + 17, cursorPosition + 17);
-      }
-      if (event.key === "q" && event.ctrlKey) {
-        event.preventDefault();
-        var input = event.target;
-        var cursorPosition = input.selectionStart;
-        var currentValue = input.value;
-        var newValue =
-          currentValue.substring(0, cursorPosition) +
-          "&amp;quot; &amp;quot;" +
-          currentValue.substring(cursorPosition);
-        input.value = newValue;
-        input.setSelectionRange(cursorPosition + 11, cursorPosition + 11);
-      }
-      if (event.key === "l" && event.ctrlKey) {
-        event.preventDefault();
-        var input = event.target;
-        var cursorPosition = input.selectionStart;
-        var currentValue = input.value;
-        var newValue =
-          currentValue.substring(0, cursorPosition) +
-          "&#x2022;" +
-          currentValue.substring(cursorPosition);
-        input.value = newValue;
-        input.setSelectionRange(cursorPosition + 10, cursorPosition + 10);
-      }
-    }
-    var inputFields = document.querySelectorAll("input, textarea");
-    inputFields.forEach(function (input) {
-      input.addEventListener("keydown", addLineBreak);
-    });
-
+    
     </script>
 
     <!-- this script is for saving and loading the page from the very position -->
-<script>
-  function savePageState() {
-  // Check if local storage is available
-  if (typeof Storage !== "undefined") {
-    // Create an object to store the page state
-    var pageState = {
-      inputValues: {},
-      mainTextVisible: mainTextVisible,
-      lmnContentVisible: lmnContentVisible,
-      lmnDetailsVisible: lmnDetailsVisible,
-      outputContent: document.getElementById("output").textContent,
-      showAllJKLButtonActive: showAllJKLButton.classList.contains("active"),
-      jklContainerContent: jklContainer.innerHTML,
-      showLMNButtonActive: showLMNButton.classList.contains("active"),
-      lmnOutputContent: document.getElementById("lmnOutput").innerHTML,
-      lmnDetailsContent: document.getElementById("lmnDetails").innerHTML,
-    };
 
-    // Store the input field values
-    var inputFields = document.querySelectorAll("input, textarea");
-    inputFields.forEach(function (input) {
-      pageState.inputValues[input.id] = input.value;
-    });
-
-    // Convert the object to JSON and store it in local storage
-    localStorage.setItem("pageState", JSON.stringify(pageState));
-
-    alert("Page state saved successfully!");
-  } else {
-    alert(
-      "Local storage is not available. Your browser may be in private mode or have local storage disabled. " +
-        "This feature requires local storage to work properly."
-    );
-  }
-}
-
-function loadPageState() {
-  // Check if local storage is available
-  if (typeof Storage !== "undefined") {
-    // Retrieve the saved page state from local storage
-    var savedState = localStorage.getItem("pageState");
-
-    if (savedState) {
-      // Parse the JSON and restore the state
-      var pageState = JSON.parse(savedState);
-
-      // Restore input field values
-      for (var inputId in pageState.inputValues) {
-        var inputValue = pageState.inputValues[inputId];
-        document.getElementById(inputId).value = inputValue;
-      }
-
-      // Restore visibility states
-      mainTextVisible = pageState.mainTextVisible;
-      lmnContentVisible = pageState.lmnContentVisible;
-      lmnDetailsVisible = pageState.lmnDetailsVisible;
-
-      // Toggle visibility based on restored states
-      if (mainTextVisible) {
-        toggleABC();
-      }
-
-      if (lmnContentVisible) {
-        toggleLMN();
-      }
-
-      if (lmnDetailsVisible) {
-        toggleDetails();
-      }
-
-      // Restore output content and button states
-      document.getElementById("output").textContent = pageState.outputContent;
-      if (pageState.showAllJKLButtonActive) {
-        toggleAllJKL();
-      }
-      jklContainer.innerHTML = pageState.jklContainerContent;
-      if (pageState.showLMNButtonActive) {
-        toggleLMN();
-      }
-      document.getElementById("lmnOutput").innerHTML = pageState.lmnOutputContent;
-      document.getElementById("lmnDetails").innerHTML = pageState.lmnDetailsContent;
-
-      alert("Page state loaded successfully!");
-    } else {
-      alert("No saved state found.");
-    }
-  } else {
-    alert(
-      "Local storage is not available. Your browser may be in private mode or have local storage disabled. " +
-        "This feature requires local storage to work properly."
-    );
-  }
-}
-
-</script>
 <!-- script for preventing scroll to top on click of hyperlink -->
 <script>
 function toggleJKLDetails(event, index) {
@@ -562,102 +213,110 @@ function toggleJKLDetails(event, index) {
   }
 }
 </script>
-<!-- Replace the input field with a textarea for filter criteria -->
-<label for="filterInput">Filter JKL:</label>
-<textarea id="filterInput" placeholder="Enter filter criteria"></textarea>
+<textarea id="filterInput" placeholder="Enter filter command here"></textarea>
+    <button id="filterButton">Hide Filtered Content</button>
+    <div id="filteredContainer"></div>
 
-<!-- Add a filter button -->
-<button id="filterButton" onclick="filterJKL()">Filter JKL</button>
-
-<script>
-  // Function to filter JKL content
-  function filterJKL() {
-    // Get the filter input value from the textarea
-    var filterInput = document.getElementById("filterInput").value.toLowerCase();
-
-    // Clear previous filter results and hide all JKL content
-    jklContainer.innerHTML = '';
-    hideAllJKL();
-
-    // Parse and split the filter input into OR, AND, and NOT conditions
-    var orConditions = filterInput.split("or(").filter(Boolean).map(function (item) {
-      return item.trim();
-    });
-
-    // Filter and display JKL content based on criteria
-    for (var i = 0; i < valuesArray.length; i++) {
-      var input10Value = valuesArray[i].input10.toLowerCase();
-
-      // Evaluate OR conditions
-      var orMatch = orConditions.some(function (orCondition) {
-        return evaluateCondition(orCondition, input10Value);
-      });
-
-      if (orMatch) {
-        displayJKL(i);
-      }
+    <script>
+   
+    // Function to display a message in a pop-up window
+    function displayMessage(message) {
+        alert(message); // You can replace 'alert' with a more customized pop-up dialog.
     }
 
-    // Display a message if no matches are found
-    if (jklContainer.innerHTML === '') {
-      alert("No matches found.");
+    // Function to hide the filtered content
+    function hideFilteredContent() {
+        var filteredContainer = document.getElementById('filteredContainer');
+        filteredContainer.style.display = 'none';
     }
-  }
 
-  // Function to hide all JKL content
-  function hideAllJKL() {
-    var jklDetails = document.querySelectorAll(".jkl-details");
-    jklDetails.forEach(function (element) {
-      element.style.display = "none";
+    // Function to show the filtered content
+    function showFilteredContent() {
+        var filteredContainer = document.getElementById('filteredContainer');
+        filteredContainer.style.display = 'block';
+    }
+
+    // Function to clear the filtered content
+    function clearFilteredContent() {
+        var filteredContainer = document.getElementById('filteredContainer');
+        filteredContainer.innerHTML = ''; // Clear the content
+    }
+
+    // Function to apply the filter
+    function applyFilter(filter) {
+        // Clear the filtered container
+        clearFilteredContent();
+
+        // Iterate through the data array and apply the filter
+        valuesArray.forEach(function (item, index) {
+            var input10 = item.input10;
+            var filtered = false;
+
+            // Split the filter into terms using spaces
+            var filterTerms = filter.split(' ');
+
+            // Variables to track the current logical operator and result
+            var currentOperator = 'AND'; // Default to AND
+            var currentResult = true;
+
+            // Process each term in the filter
+            filterTerms.forEach(function (term) {
+                if (term.toUpperCase() === 'AND') {
+                    currentOperator = 'AND';
+                } else if (term.toUpperCase() === 'OR') {
+                    currentOperator = 'OR';
+                } else if (term.toUpperCase() === 'NOT') {
+                    currentOperator = 'NOT';
+                } else {
+                    if (currentOperator === 'AND') {
+                        currentResult = currentResult && input10.includes(term);
+                    } else if (currentOperator === 'OR') {
+                        currentResult = currentResult || input10.includes(term);
+                    } else if (currentOperator === 'NOT') {
+                        currentResult = currentResult && !input10.includes(term);
+                    }
+                }
+            });
+
+            // After processing all terms, the currentResult contains the final result
+            filtered = currentResult;
+
+            // If filtered, display the item in the filtered container
+            if (filtered) {
+                var filteredContainer = document.getElementById('filteredContainer');
+                var itemDiv = document.createElement('div');
+                itemDiv.textContent = 'Item ' + (index + 1) + ': ' + JSON.stringify(item);
+                filteredContainer.appendChild(itemDiv);
+            }
+        });
+
+        // If no matches are found, display a message in a pop-up window
+        var filteredContainer = document.getElementById('filteredContainer');
+        if (filteredContainer.childElementCount === 0) {
+            displayMessage("No matches found.");
+        } else {
+            showFilteredContent();
+        }
+    }
+
+    // Event listener for the filter button
+    var filterButton = document.getElementById('filterButton');
+    filterButton.addEventListener('click', function () {
+        var filterInput = document.getElementById('filterInput').value;
+        var buttonText = filterButton.textContent;
+        if (buttonText === 'Hide Filtered Content') {
+            // Hide all filtered content and toggle button text
+            hideFilteredContent();
+            filterButton.textContent = 'Show Filtered Content';
+        } else {
+            // Apply the filter and toggle button text
+            applyFilter(filterInput);
+            filterButton.textContent = 'Hide Filtered Content';
+        }
     });
-  }
+    </script>
 
-  // Function to evaluate filter conditions
-  function evaluateCondition(condition, input10Value) {
-    // ... (existing evaluateCondition logic)
-
-    // Default behavior: Check if the condition is contained in input10
-    return input10Value.includes(condition);
-  }
-
-  // Function to display JKL content
-  function displayJKL(index) {
-    var input1Value = valuesArray[index].input1;
-    var input2Value = valuesArray[index].input2;
-    var input3Value = valuesArray[index].input3;
-    var input4Value = valuesArray[index].input4;
-    var input5Value = valuesArray[index].input5.replace(/&#x003C;/g, "<").replace(/&#x003E;/g, ">");
-    var input6Value = valuesArray[index].input6;
-    var input7Value = valuesArray[index].input7;
-    var input8Value = valuesArray[index].input8;
-    var input9Value = valuesArray[index].input9;
-    var input10Value = valuesArray[index].input10;
-
-    var jklContentText = '<b><u>' + input1Value + ': ' + input2Value + '</b></u>' + input3Value + ' + ';
-    jklContentText += '<a href="javascript:void(0)" onclick="toggleJKLDetails(' + index + ')">[' + (index + 1) + ']</a>';
-    jklContentText += '<div id="jklDetails_' + index + '" class="jkl-details">' + input1Value + ":" + input4Value + input5Value + input6Value + input7Value + '<a href="' + input8Value + '">' + input8Value + '</a>' + input9Value + '</div>';
-
-  var jklContent = document.createElement("div");
-  jklContent.className = "jkl-content"; // Add a class for styling
-
-  // Remove the "display: none" style to show the content
-  jklContent.style.display = "block";
-
-  jklContent.innerHTML = jklContentText;
-  jklContainer.appendChild(jklContent);
-}
-
-// Function to toggle the visibility of JKL details
-function toggleJKLDetails(index) {
-  var jklDetails = document.getElementById("jklDetails_" + index);
-  if (jklDetails.style.display === "none") {
-    jklDetails.style.display = "block";
-  } else {
-    jklDetails.style.display = "none";
-  }
-}
-
-</script>
+    
 
 <a id="BOTTOM"></a>
 <footer>
